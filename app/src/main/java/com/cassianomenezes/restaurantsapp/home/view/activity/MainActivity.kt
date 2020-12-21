@@ -8,15 +8,18 @@ import com.cassianomenezes.restaurantsapp.R
 import com.cassianomenezes.restaurantsapp.extension.bindingContentView
 import com.cassianomenezes.restaurantsapp.extension.showToast
 import com.cassianomenezes.restaurantsapp.home.adapter.RestaurantListAdapter
+import com.cassianomenezes.restaurantsapp.home.view.viewmodel.MainViewModel
 import com.cassianomenezes.restaurantsapp.model.OverallData
 import com.cassianomenezes.restaurantsapp.model.Restaurant
 import com.cassianomenezes.restaurantsapp.utils.JsonUtil
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
+    private val viewModel: MainViewModel by viewModel()
     lateinit var restaurantsData: OverallData
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -57,6 +57,11 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'com.google.code.gson:gson:2.8.6'
 
+    //dependency injection
+    implementation "org.koin:koin-androidx-scope:$versions.scope"
+    implementation "org.koin:koin-androidx-viewmodel:$versions.scope"
+    implementation "org.koin:koin-androidx-ext:$versions.koin"
+
     //coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutines"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
