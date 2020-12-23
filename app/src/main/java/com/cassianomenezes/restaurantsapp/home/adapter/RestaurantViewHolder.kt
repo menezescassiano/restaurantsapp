@@ -13,6 +13,7 @@ class RestaurantViewHolder(private val binding: ViewDataBinding) : RecyclerView.
             val context = this.root.context
             item.run {
                 setVariable(BR.title, name)
+                setVariable(BR.status, status)
             }
             executePendingBindings()
         }

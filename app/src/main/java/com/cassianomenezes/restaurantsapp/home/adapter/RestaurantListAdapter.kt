@@ -10,7 +10,7 @@ import com.cassianomenezes.restaurantsapp.R
 import com.cassianomenezes.restaurantsapp.databinding.LayoutRestaurantListItemBinding
 import com.cassianomenezes.restaurantsapp.model.Restaurant
 
-class RestaurantListAdapter(private val list: ArrayList<Restaurant>) : RecyclerView.Adapter<RestaurantViewHolder>() {
+class RestaurantListAdapter(var list: List<Restaurant>) : RecyclerView.Adapter<RestaurantViewHolder>() {
 
     lateinit var binding: LayoutRestaurantListItemBinding
     val selectedRestaurant: MutableLiveData<Restaurant> = MutableLiveData()

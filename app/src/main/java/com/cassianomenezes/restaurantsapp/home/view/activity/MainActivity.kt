@@ -43,15 +43,25 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setRecyclerView() {
-        val listAdapter = RestaurantListAdapter(restaurantsData.restaurants as ArrayList<Restaurant>)
+        val allList = arrayListOf<Restaurant>()
+        restaurantsData.restaurants.run {
+            val openList = this.filter { it.status == "open" }
+            val closedList = this.filter { it.status == "closed" }
+            val orderAhead = this.filter { it.status == "order ahead" }
+            allList.run {
+                addAll(openList)
+                addAll(orderAhead)
+                addAll(closedList)
+            }
+        }
+        val listAdapter = RestaurantListAdapter(allList)
 
         recyclerView.apply {
             adapter = listAdapter
             layoutManager = LinearLayoutManager(context)
         }
-
         listAdapter.selectedRestaurant.observe(this@MainActivity, {
-            showToast(it.status)
+            //showToast("""${it.status} ${it.sortingValues.deliveryCosts}""")
         })
     }
 }
