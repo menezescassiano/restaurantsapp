@@ -4,20 +4,21 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cassianomenezes.restaurantsapp.BR
+import com.cassianomenezes.restaurantsapp.BaseApplication
 import com.cassianomenezes.restaurantsapp.R
 import com.cassianomenezes.restaurantsapp.extension.bindingContentView
 import com.cassianomenezes.restaurantsapp.extension.observe
-import com.cassianomenezes.restaurantsapp.extension.showToast
 import com.cassianomenezes.restaurantsapp.home.adapter.RestaurantListAdapter
 import com.cassianomenezes.restaurantsapp.home.view.viewmodel.MainViewModel
 import com.cassianomenezes.restaurantsapp.model.OverallData
 import com.cassianomenezes.restaurantsapp.model.Restaurant
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class MainActivity : AppCompatActivity() {
 
-    private val viewModel: MainViewModel by viewModel()
+    private val viewModel: MainViewModel by viewModel{ parametersOf((application as BaseApplication).restaurantRepositoryImpl) }
     lateinit var restaurantsData: OverallData
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,11 +37,17 @@ class MainActivity : AppCompatActivity() {
             observe(restaurantData) {
                 it?.let {
                     restaurantsData = it
+                    handleList(it.restaurants)
+                }
+            }
+            observe(listData) {
+                it?.let {
                     setRecyclerView()
                 }
             }
         }
     }
+
 
     private fun setRecyclerView() {
         val allList = arrayListOf<Restaurant>()
@@ -61,7 +68,7 @@ class MainActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(context)
         }
         listAdapter.selectedRestaurant.observe(this@MainActivity, {
-            //showToast("""${it.status} ${it.sortingValues.deliveryCosts}""")
+            viewModel.favRestaurant(it.name)
         })
     }
 }

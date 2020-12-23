@@ -1,5 +1,6 @@
 package com.cassianomenezes.restaurantsapp.di
 
+import com.cassianomenezes.restaurantsapp.database.RestaurantRepository
 import com.cassianomenezes.restaurantsapp.home.view.viewmodel.MainViewModel
 import com.cassianomenezes.restaurantsapp.repository.DataRepository
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -23,7 +24,8 @@ private val repositoryModule = module {
 }
 
 private val viewModelModule = module {
-    viewModel { MainViewModel(repository = get()) }
+    //viewModel { (gifRepository: GifRepository) -> HomeListViewModel(repository = get(), gifRepositoryImpl = gifRepository) }
+    viewModel { (restaurantRepository: RestaurantRepository) -> MainViewModel(repository = get(), restaurantRepositoryImpl = restaurantRepository ) }
     /*viewModel { RecipeDetailViewModel(resourceManager = get()) }*/
 }
 

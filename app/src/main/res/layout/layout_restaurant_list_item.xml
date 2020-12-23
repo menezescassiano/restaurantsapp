@@ -14,6 +14,14 @@
             name="status"
             type="String" />
 
+        <variable
+            name="favIcon"
+            type="android.graphics.drawable.Drawable" />
+
+        <variable
+            name="onFavClick"
+            type="android.view.View.OnClickListener" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,14 +41,27 @@
             tools:text="Title" />
 
         <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:text="@{status}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/favIcon"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Status" />
+
+        <ImageView
+            android:id="@+id/favIcon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_margin="20dp"
+            android:onClick="@{onFavClick}"
+            android:src="@{favIcon}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_unfav" />
 
         <View
             android:layout_width="match_parent"
