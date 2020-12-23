@@ -27,11 +27,12 @@ class MainViewModel(val repository: DataRepository, val restaurantRepositoryImpl
         }
     }
 
-    fun favRestaurant(name: String) {
+    fun favRestaurant(name: String, added: Boolean) {
         viewModelScope.launch {
-            restaurantRepositoryImpl.insertAll(RestaurantObject(null, name))/*.run {
-                //listData.value = this.data
-            }*/
+            when {
+                added -> restaurantRepositoryImpl.delete(name)
+                else -> restaurantRepositoryImpl.insertAll(RestaurantObject(null, name))
+            }
         }
     }
 }

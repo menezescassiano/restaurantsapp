@@ -9,7 +9,7 @@ interface RestaurantRepository {
 
     suspend fun getAll(): List<RestaurantObject>
 
-    suspend fun delete(restaurantObject: RestaurantObject)
+    suspend fun delete(name: String)
 
     suspend fun findByTitle(id: String): RestaurantObject
 

@@ -15,8 +15,8 @@ class RestaurantRepositoryImpl(private val restaurantDao: RestaurantDao): Restau
         return restaurantDao.getAll()
     }
 
-    override suspend fun delete(restaurantObject: RestaurantObject) {
-        restaurantDao.delete(restaurantObject)
+    override suspend fun delete(name: String) {
+        restaurantDao.delete(name)
     }
 
     override suspend fun findByTitle(id: String): RestaurantObject {

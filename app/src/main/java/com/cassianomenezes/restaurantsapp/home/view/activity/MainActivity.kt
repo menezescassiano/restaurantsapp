@@ -68,7 +68,9 @@ class MainActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(context)
         }
         listAdapter.selectedRestaurant.observe(this@MainActivity, {
-            viewModel.favRestaurant(it.name)
+            viewModel.favRestaurant(it.name, it.added)
+            allList[allList.indexOf(it)].added = !it.added
+            listAdapter.notifyDataSetChanged()
         })
     }
 }

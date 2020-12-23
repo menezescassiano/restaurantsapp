@@ -20,7 +20,7 @@ interface RestaurantDao {
     @Insert
     suspend fun insertAll(vararg restaurants: RestaurantObject)
 
-    @Delete
-    suspend fun delete(restaurantObject: RestaurantObject)
+    @Query("DELETE FROM restaurant WHERE title = :name")
+    suspend fun delete(name: String)
 
 }
