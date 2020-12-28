@@ -78,6 +78,15 @@ class RestaurantRepositoryImpl(private val restaurantDao: RestaurantDao) : Resta
                         addAll(openList)
                         addAll(closedList)
                     }
+                    BEST_MATCH -> addAll(restaurants.sortedBy { it.sortingValues.bestMatch }.reversed())
+                    NEWEST -> addAll(restaurants.sortedBy { it.sortingValues.newest }.reversed())
+                    RATING_AVERAGE -> addAll(restaurants.sortedBy { it.sortingValues.ratingAverage }.reversed())
+                    DISTANCE -> addAll(restaurants.sortedBy { it.sortingValues.distance })
+                    POPULARITY -> addAll(restaurants.sortedBy { it.sortingValues.popularity }.reversed())
+                    AVERAGE_PRICE -> addAll(restaurants.sortedBy { it.sortingValues.averageProductPrice })
+                    DELIVERY_COSTS -> addAll(restaurants.sortedBy { it.sortingValues.deliveryCosts })
+                    MIN_COSTS -> addAll(restaurants.sortedBy { it.sortingValues.minCost })
+
                     else -> {
                         addAll(favOpenList)
                         addAll(favOrderAheadList)

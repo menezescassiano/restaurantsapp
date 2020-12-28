@@ -71,9 +71,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setSpinner() {
-        val orderingOptions = resources.getStringArray(R.array.Ordering)
+        val orderingOptions = resources.getStringArray(R.array.ordering)
         spinner?.let {
-            it.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, orderingOptions)
+            it.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, orderingOptions)
             it.onItemSelectedListener = object :
                 AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
@@ -81,6 +81,14 @@ class MainActivity : AppCompatActivity() {
                         1 -> setAdapter(OPEN)
                         2 -> setAdapter(CLOSED)
                         3 -> setAdapter(ORDER_AHEAD)
+                        4 -> setAdapter(BEST_MATCH)
+                        5 -> setAdapter(NEWEST)
+                        6 -> setAdapter(RATING_AVERAGE)
+                        7 -> setAdapter(DISTANCE)
+                        8 -> setAdapter(POPULARITY)
+                        9 -> setAdapter(AVERAGE_PRICE)
+                        10 -> setAdapter(DELIVERY_COSTS)
+                        11 -> setAdapter(MIN_COSTS)
                         else -> setAdapter(INITIAL)
                     }
                 }

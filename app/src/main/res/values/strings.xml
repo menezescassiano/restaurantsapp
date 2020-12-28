@@ -1,10 +1,18 @@
 <resources>
     <string name="app_name">restaurantsapp</string>
 
-    <string-array name="Ordering">
+    <string-array name="ordering">
         <item>Choose the ordering</item>
         <item>Open</item>
         <item>Closed</item>
         <item>Order Ahead</item>
+        <item>Best Match</item>
+        <item>Newest</item>
+        <item>Rating Average</item>
+        <item>Distance</item>
+        <item>Popularity</item>
+        <item>Average Product Price</item>
+        <item>Delivery Costs</item>
+        <item>Min Cost</item>
     </string-array>
 </resources>
