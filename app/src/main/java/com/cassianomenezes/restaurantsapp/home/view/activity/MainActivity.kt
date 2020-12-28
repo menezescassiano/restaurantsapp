@@ -42,26 +42,15 @@ class MainActivity : AppCompatActivity() {
             }
             observe(listData) {
                 it?.let {
-                    setRecyclerView()
+                    setRecyclerView(it)
                 }
             }
         }
     }
 
 
-    private fun setRecyclerView() {
-        val allList = arrayListOf<Restaurant>()
-        restaurantsData.restaurants.run {
-            val openList = this.filter { it.status == "open" }
-            val closedList = this.filter { it.status == "closed" }
-            val orderAhead = this.filter { it.status == "order ahead" }
-            allList.run {
-                addAll(openList)
-                addAll(orderAhead)
-                addAll(closedList)
-            }
-        }
-        val listAdapter = RestaurantListAdapter(allList)
+    private fun setRecyclerView(list: List<Restaurant>) {
+        val listAdapter = RestaurantListAdapter(list)
 
         recyclerView.apply {
             adapter = listAdapter
@@ -69,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         }
         listAdapter.selectedRestaurant.observe(this@MainActivity, {
             viewModel.favRestaurant(it.name, it.added)
-            allList[allList.indexOf(it)].added = !it.added
+            list[list.indexOf(it)].added = !it.added
             listAdapter.notifyDataSetChanged()
         })
     }
