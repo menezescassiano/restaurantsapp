@@ -1,11 +1,12 @@
 package com.cassianomenezes.restaurantsapp.database
 
-import com.cassianomenezes.restaurantsapp.internal.Constants.*
+import com.cassianomenezes.restaurantsapp.internal.StatusConstants.*
 import com.cassianomenezes.restaurantsapp.internal.RequestStatus
+import com.cassianomenezes.restaurantsapp.internal.StatusConstants
 import com.cassianomenezes.restaurantsapp.model.DataResult
 import com.cassianomenezes.restaurantsapp.model.Restaurant
 
-class RestaurantRepositoryImpl(private val restaurantDao: RestaurantDao): RestaurantRepository {
+class RestaurantRepositoryImpl(private val restaurantDao: RestaurantDao) : RestaurantRepository {
 
     override suspend fun insertAll(restaurantObject: RestaurantObject) {
         restaurantDao.insertAll(RestaurantObject(id = restaurantObject.id, title = restaurantObject.title))
@@ -27,38 +28,65 @@ class RestaurantRepositoryImpl(private val restaurantDao: RestaurantDao): Restau
         return restaurantDao.getById(id)
     }
 
-    override suspend fun getAddedRestaurants(restaurants: List<Restaurant>) : DataResult<List<Restaurant>> {
+    override suspend fun getAddedRestaurants(restaurants: List<Restaurant>): DataResult<List<Restaurant>> {
         return try {
             restaurants.forEach {
                 if (restaurantDao.findByTitle(it.name) != null) {
                     it.added = true
                 }
             }
-            val myRestaurants = getOriginalOrder(restaurants)
-            DataResult(RequestStatus.SUCCESS, myRestaurants)
-        } catch (e:Exception) {
+            DataResult(RequestStatus.SUCCESS, getDesiredOrder(restaurants, INITIAL))
+        } catch (e: Exception) {
             print("Error: $e")
             DataResult(status = RequestStatus.ERROR)
         }
     }
 
-    private fun getOriginalOrder(restaurants: List<Restaurant>): List<Restaurant> {
+    override fun getDesiredOrder(restaurants: List<Restaurant>, status: StatusConstants): List<Restaurant> {
         val allList = arrayListOf<Restaurant>()
         restaurants.run {
             val favOpenList = this.filter { it.status == OPEN.status && it.added }
             val favOrderAheadList = this.filter { it.status == ORDER_AHEAD.status && it.added }
             val favClosedList = this.filter { it.status == CLOSED.status && it.added }
-
-            val openList = this.filter { it.status == OPEN.status && !it.added}
-            val closedList = this.filter { it.status == CLOSED.status && !it.added}
+            val openList = this.filter { it.status == OPEN.status && !it.added }
+            val closedList = this.filter { it.status == CLOSED.status && !it.added }
             val orderAhead = this.filter { it.status == ORDER_AHEAD.status && !it.added }
+
             allList.run {
-                addAll(favOpenList)
-                addAll(favOrderAheadList)
-                addAll(favClosedList)
-                addAll(openList)
-                addAll(orderAhead)
-                addAll(closedList)
+                when (status) {
+                    OPEN -> {
+                        addAll(favOpenList)
+                        addAll(openList)
+                        addAll(favOrderAheadList)
+                        addAll(favClosedList)
+                        addAll(orderAhead)
+                        addAll(closedList)
+                    }
+                    CLOSED -> {
+                        addAll(favClosedList)
+                        addAll(closedList)
+                        addAll(favOpenList)
+                        addAll(favOrderAheadList)
+                        addAll(openList)
+                        addAll(orderAhead)
+                    }
+                    ORDER_AHEAD -> {
+                        addAll(favOrderAheadList)
+                        addAll(orderAhead)
+                        addAll(favOpenList)
+                        addAll(favClosedList)
+                        addAll(openList)
+                        addAll(closedList)
+                    }
+                    else -> {
+                        addAll(favOpenList)
+                        addAll(favOrderAheadList)
+                        addAll(favClosedList)
+                        addAll(openList)
+                        addAll(orderAhead)
+                        addAll(closedList)
+                    }
+                }
             }
         }
         return allList

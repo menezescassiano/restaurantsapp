@@ -1,5 +1,6 @@
 package com.cassianomenezes.restaurantsapp.database
 
+import com.cassianomenezes.restaurantsapp.internal.StatusConstants
 import com.cassianomenezes.restaurantsapp.model.DataResult
 import com.cassianomenezes.restaurantsapp.model.Restaurant
 
@@ -16,4 +17,6 @@ interface RestaurantRepository {
     suspend fun getById(id: String): RestaurantObject
 
     suspend fun getAddedRestaurants(restaurants: List<Restaurant>): DataResult<List<Restaurant>>
+
+    fun getDesiredOrder(restaurants: List<Restaurant>, status: StatusConstants): List<Restaurant>
 }

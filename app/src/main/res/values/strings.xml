@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">restaurantsapp</string>
+
+    <string-array name="Ordering">
+        <item>Choose the ordering</item>
+        <item>Open</item>
+        <item>Closed</item>
+        <item>Order Ahead</item>
+    </string-array>
 </resources>

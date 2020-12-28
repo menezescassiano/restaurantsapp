@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cassianomenezes.restaurantsapp.database.RestaurantObject
 import com.cassianomenezes.restaurantsapp.database.RestaurantRepository
+import com.cassianomenezes.restaurantsapp.internal.StatusConstants
 import com.cassianomenezes.restaurantsapp.model.OverallData
 import com.cassianomenezes.restaurantsapp.model.Restaurant
 import com.cassianomenezes.restaurantsapp.repository.DataRepository
@@ -34,5 +35,9 @@ class MainViewModel(val repository: DataRepository, val restaurantRepositoryImpl
                 else -> restaurantRepositoryImpl.insertAll(RestaurantObject(null, name))
             }
         }
+    }
+
+    fun getDesiredOrder(restaurants: List<Restaurant>, status: StatusConstants): List<Restaurant> {
+        return restaurantRepositoryImpl.getDesiredOrder(restaurants, status)
     }
 }
