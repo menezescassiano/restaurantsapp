@@ -12,5 +12,6 @@ enum class StatusConstants(val status: String) {
     POPULARITY("popularity"),
     AVERAGE_PRICE("average price"),
     DELIVERY_COSTS("delivery costs"),
-    MIN_COSTS("min costs")
+    MIN_COSTS("min costs"),
+    WORDS("words")
 }

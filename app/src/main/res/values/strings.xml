@@ -15,4 +15,6 @@
         <item>Delivery Costs</item>
         <item>Min Cost</item>
     </string-array>
+
+    <string name="search_button_text">search</string>
 </resources>

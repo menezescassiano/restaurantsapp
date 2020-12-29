@@ -42,7 +42,7 @@ class RestaurantRepositoryImpl(private val restaurantDao: RestaurantDao) : Resta
         }
     }
 
-    override fun getDesiredOrder(restaurants: List<Restaurant>, status: StatusConstants): List<Restaurant> {
+    override fun getDesiredOrder(restaurants: List<Restaurant>, status: StatusConstants, word: String?): List<Restaurant> {
         val allList = arrayListOf<Restaurant>()
         restaurants.run {
             val favOpenList = this.filter { it.status == OPEN.status && it.added }
@@ -86,6 +86,12 @@ class RestaurantRepositoryImpl(private val restaurantDao: RestaurantDao) : Resta
                     AVERAGE_PRICE -> addAll(restaurants.sortedBy { it.sortingValues.averageProductPrice })
                     DELIVERY_COSTS -> addAll(restaurants.sortedBy { it.sortingValues.deliveryCosts })
                     MIN_COSTS -> addAll(restaurants.sortedBy { it.sortingValues.minCost })
+                    WORDS -> {
+                        when {
+                            !word.isNullOrEmpty() -> addAll(restaurants.filter { s -> s.name.contains(word, ignoreCase = true) })
+                            else -> addAll(restaurants)
+                        }
+                    }
 
                     else -> {
                         addAll(favOpenList)

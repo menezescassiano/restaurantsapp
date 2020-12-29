@@ -1,5 +1,6 @@
 package com.cassianomenezes.restaurantsapp.home.view.viewmodel
 
+import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,6 +16,7 @@ class MainViewModel(val repository: DataRepository, val restaurantRepositoryImpl
 
     val restaurantData = MutableLiveData<OverallData>()
     val listData = MutableLiveData<List<Restaurant>>()
+    var inputTextSearch = ObservableField("")
 
     fun getData() {
         restaurantData.postValue(repository.getRestaurants())
@@ -37,7 +39,7 @@ class MainViewModel(val repository: DataRepository, val restaurantRepositoryImpl
         }
     }
 
-    fun getDesiredOrder(restaurants: List<Restaurant>, status: StatusConstants): List<Restaurant> {
-        return restaurantRepositoryImpl.getDesiredOrder(restaurants, status)
+    fun getDesiredOrder(word: String? = "", restaurants: List<Restaurant>, status: StatusConstants): List<Restaurant> {
+        return restaurantRepositoryImpl.getDesiredOrder(restaurants, status, word)
     }
 }

@@ -13,7 +13,7 @@
             type="com.cassianomenezes.restaurantsapp.home.view.viewmodel.MainViewModel" />
 
         <variable
-            name="onTryAgainClick"
+            name="onSearchClick"
             type="android.view.View.OnClickListener" />
 
     </data>
@@ -30,6 +30,29 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <EditText
+            android:id="@+id/searchField"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:singleLine="true"
+            android:layout_marginEnd="10dp"
+            android:text="@={viewModel.inputTextSearch}"
+            app:layout_constraintEnd_toStartOf="@+id/button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinner" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/black"
+            android:layout_marginEnd="10dp"
+            android:onClick="@{onSearchClick}"
+            android:text="@string/search_button_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinner" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
@@ -39,7 +62,7 @@
             app:layout_constraintStart_toStartOf="parent"
             tools:itemCount="4"
             tools:listitem="@layout/layout_restaurant_list_item"
-            app:layout_constraintTop_toBottomOf="@+id/spinner" />
+            app:layout_constraintTop_toBottomOf="@+id/searchField" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

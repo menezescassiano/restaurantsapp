@@ -18,5 +18,5 @@ interface RestaurantRepository {
 
     suspend fun getAddedRestaurants(restaurants: List<Restaurant>): DataResult<List<Restaurant>>
 
-    fun getDesiredOrder(restaurants: List<Restaurant>, status: StatusConstants): List<Restaurant>
+    fun getDesiredOrder(restaurants: List<Restaurant>, status: StatusConstants, word: String? = ""): List<Restaurant>
 }

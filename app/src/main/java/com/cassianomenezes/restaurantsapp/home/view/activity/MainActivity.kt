@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     private fun setupBinding() {
         bindingContentView(R.layout.activity_main).apply {
             setVariable(BR.viewModel, viewModel)
-            //setVariable(BR.onTryAgainClick, View.OnClickListener { onTryAgainClick() })
+            setVariable(BR.onSearchClick, View.OnClickListener { onSearchClick() })
         }
 
         viewModel.apply {
@@ -53,6 +53,10 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun onSearchClick() {
+        setAdapter(viewModel.inputTextSearch.get(), WORDS)
     }
 
 
@@ -78,18 +82,18 @@ class MainActivity : AppCompatActivity() {
                 AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                     when (position) {
-                        1 -> setAdapter(OPEN)
-                        2 -> setAdapter(CLOSED)
-                        3 -> setAdapter(ORDER_AHEAD)
-                        4 -> setAdapter(BEST_MATCH)
-                        5 -> setAdapter(NEWEST)
-                        6 -> setAdapter(RATING_AVERAGE)
-                        7 -> setAdapter(DISTANCE)
-                        8 -> setAdapter(POPULARITY)
-                        9 -> setAdapter(AVERAGE_PRICE)
-                        10 -> setAdapter(DELIVERY_COSTS)
-                        11 -> setAdapter(MIN_COSTS)
-                        else -> setAdapter(INITIAL)
+                        1 -> setAdapter(viewModel.inputTextSearch.get(), OPEN)
+                        2 -> setAdapter(viewModel.inputTextSearch.get(), CLOSED)
+                        3 -> setAdapter(viewModel.inputTextSearch.get(), ORDER_AHEAD)
+                        4 -> setAdapter(viewModel.inputTextSearch.get(), BEST_MATCH)
+                        5 -> setAdapter(viewModel.inputTextSearch.get(), NEWEST)
+                        6 -> setAdapter(viewModel.inputTextSearch.get(), RATING_AVERAGE)
+                        7 -> setAdapter(viewModel.inputTextSearch.get(), DISTANCE)
+                        8 -> setAdapter(viewModel.inputTextSearch.get(), POPULARITY)
+                        9 -> setAdapter(viewModel.inputTextSearch.get(), AVERAGE_PRICE)
+                        10 -> setAdapter(viewModel.inputTextSearch.get(), DELIVERY_COSTS)
+                        11 -> setAdapter(viewModel.inputTextSearch.get(), MIN_COSTS)
+                        else -> setAdapter(viewModel.inputTextSearch.get(), INITIAL)
                     }
                 }
                 override fun onNothingSelected(parent: AdapterView<*>) {
@@ -99,10 +103,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setAdapter(status: StatusConstants) {
+    private fun setAdapter(word: String? = "", status: StatusConstants) {
         recyclerView.apply {
             listAdapter.run {
-                list = viewModel.getDesiredOrder(restaurantsData.restaurants, status)
+                list = viewModel.getDesiredOrder(word, restaurantsData.restaurants, status)
                 notifyDataSetChanged()
             }
         }
