@@ -89,7 +89,14 @@ class RestaurantRepositoryImpl(private val restaurantDao: RestaurantDao) : Resta
                     WORDS -> {
                         when {
                             !word.isNullOrEmpty() -> addAll(restaurants.filter { s -> s.name.contains(word, ignoreCase = true) })
-                            else -> addAll(restaurants)
+                            else -> {
+                                addAll(favOpenList)
+                                addAll(favOrderAheadList)
+                                addAll(favClosedList)
+                                addAll(openList)
+                                addAll(orderAhead)
+                                addAll(closedList)
+                            }
                         }
                     }
 
