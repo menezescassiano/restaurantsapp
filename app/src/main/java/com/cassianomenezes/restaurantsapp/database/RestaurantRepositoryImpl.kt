@@ -88,7 +88,7 @@ class RestaurantRepositoryImpl(private val restaurantDao: RestaurantDao) : Resta
                     MIN_COSTS -> addAll(restaurants.sortedBy { it.sortingValues.minCost })
                     WORDS -> {
                         when {
-                            !word.isNullOrEmpty() -> addAll(restaurants.filter { s -> s.name.contains(word, ignoreCase = true) })
+                            !word.isNullOrEmpty() -> addAll(restaurants.filter { it.name.contains(word, ignoreCase = true) })
                             else -> {
                                 addAll(favOpenList)
                                 addAll(favOrderAheadList)
