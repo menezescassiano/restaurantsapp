@@ -15,10 +15,9 @@ class DataRepository(private val context: Context) {
         val jsonFileString = JsonUtil.getJsonDataFromAsset(context, "sample_android.json")
         jsonFileString?.let { Log.i("data", it) }
 
-        val gson = Gson()
         val data = object : TypeToken<OverallData>(){}.type
 
-        return gson.fromJson(jsonFileString, data)
+        return Gson().fromJson(jsonFileString, data)
     }
 
 }

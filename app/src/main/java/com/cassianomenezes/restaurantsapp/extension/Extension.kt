@@ -18,10 +18,6 @@ fun <T : Any, L : LiveData<T>> LifecycleOwner.observe(liveData: L, expression: (
     liveData.observe(this, Observer(expression))
 }
 
-fun Context.getSharedPreferences(name: String): SharedPreferences {
-    return getSharedPreferences(name, Context.MODE_PRIVATE)
-}
-
 fun Context.showToast(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 }
