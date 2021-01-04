@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupBinding()
+        setSwipeListener()
     }
 
     private fun setupBinding() {
@@ -59,6 +60,16 @@ class MainActivity : AppCompatActivity() {
         updateListAdapter(viewModel.inputTextSearch.get(), WORDS)
     }
 
+    private fun setSwipeListener() {
+        swipeLayout.run {
+            setOnRefreshListener {
+                updateListAdapter(viewModel.inputTextSearch.get(), INITIAL)
+                isRefreshing = false
+                viewModel.inputTextSearch.set("")
+                spinner.setSelection(0)
+            }
+        }
+    }
 
     private fun setRecyclerView(list: List<Restaurant>) {
         listAdapter = RestaurantListAdapter(list)

@@ -77,4 +77,6 @@ dependencies {
     implementation "androidx.room:room-runtime:$versions.room"
     kapt "androidx.room:room-compiler:$versions.room"
     implementation "androidx.room:room-ktx:$versions.room"
+
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:$versions.swipe"
 }
