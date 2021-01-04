@@ -4,7 +4,7 @@ buildscript {
     ext.versions = [
             'gradle'            : '4.0.1',
             'kotlin'            : '1.4.20',
-            'constraint'        : '2.0.1',
+            'constraint'        : '2.0.4',
             'ktlint'            : '0.36.0',
             'koin'              : '2.0.1',
             'courotines'        : '1.3.0',

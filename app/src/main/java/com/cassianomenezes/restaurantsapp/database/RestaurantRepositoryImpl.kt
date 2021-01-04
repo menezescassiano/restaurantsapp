@@ -51,6 +51,7 @@ class RestaurantRepositoryImpl(private val restaurantDao: RestaurantDao) : Resta
             val openList = this.filter { it.status == OPEN.status && !it.added }
             val closedList = this.filter { it.status == CLOSED.status && !it.added }
             val orderAhead = this.filter { it.status == ORDER_AHEAD.status && !it.added }
+            val notFavorited = this.filter { !it.added }
 
             allList.run {
                 when (status) {
@@ -78,14 +79,54 @@ class RestaurantRepositoryImpl(private val restaurantDao: RestaurantDao) : Resta
                         addAll(openList)
                         addAll(closedList)
                     }
-                    BEST_MATCH -> addAll(restaurants.sortedBy { it.sortingValues.bestMatch }.reversed())
-                    NEWEST -> addAll(restaurants.sortedBy { it.sortingValues.newest }.reversed())
-                    RATING_AVERAGE -> addAll(restaurants.sortedBy { it.sortingValues.ratingAverage }.reversed())
-                    DISTANCE -> addAll(restaurants.sortedBy { it.sortingValues.distance })
-                    POPULARITY -> addAll(restaurants.sortedBy { it.sortingValues.popularity }.reversed())
-                    AVERAGE_PRICE -> addAll(restaurants.sortedBy { it.sortingValues.averageProductPrice })
-                    DELIVERY_COSTS -> addAll(restaurants.sortedBy { it.sortingValues.deliveryCosts })
-                    MIN_COSTS -> addAll(restaurants.sortedBy { it.sortingValues.minCost })
+                    BEST_MATCH -> {
+                        addAll(favOpenList.sortedBy { it.sortingValues.bestMatch }.reversed())
+                        addAll(favOrderAheadList.sortedBy { it.sortingValues.bestMatch }.reversed())
+                        addAll(favClosedList.sortedBy { it.sortingValues.bestMatch }.reversed())
+                        addAll(notFavorited)
+                    }
+                    NEWEST -> {
+                        addAll(favOpenList.sortedBy { it.sortingValues.newest }.reversed())
+                        addAll(favOrderAheadList.sortedBy { it.sortingValues.newest }.reversed())
+                        addAll(favClosedList.sortedBy { it.sortingValues.newest }.reversed())
+                        addAll(notFavorited)
+                    }
+                    RATING_AVERAGE -> {
+                        addAll(favOpenList.sortedBy { it.sortingValues.ratingAverage }.reversed())
+                        addAll(favOrderAheadList.sortedBy { it.sortingValues.ratingAverage }.reversed())
+                        addAll(favClosedList.sortedBy { it.sortingValues.ratingAverage }.reversed())
+                        addAll(notFavorited)
+                    }
+                    DISTANCE -> {
+                        addAll(favOpenList.sortedBy { it.sortingValues.distance })
+                        addAll(favOrderAheadList.sortedBy { it.sortingValues.distance })
+                        addAll(favClosedList.sortedBy { it.sortingValues.distance })
+                        addAll(notFavorited)
+                    }
+                    POPULARITY -> {
+                        addAll(favOpenList.sortedBy { it.sortingValues.popularity }.reversed())
+                        addAll(favOrderAheadList.sortedBy { it.sortingValues.popularity }.reversed())
+                        addAll(favClosedList.sortedBy { it.sortingValues.popularity }.reversed())
+                        addAll(notFavorited)
+                    }
+                    AVERAGE_PRICE -> {
+                        addAll(favOpenList.sortedBy { it.sortingValues.averageProductPrice })
+                        addAll(favOrderAheadList.sortedBy { it.sortingValues.averageProductPrice })
+                        addAll(favClosedList.sortedBy { it.sortingValues.averageProductPrice })
+                        addAll(notFavorited)
+                    }
+                    DELIVERY_COSTS -> {
+                        addAll(favOpenList.sortedBy { it.sortingValues.deliveryCosts })
+                        addAll(favOrderAheadList.sortedBy { it.sortingValues.deliveryCosts })
+                        addAll(favClosedList.sortedBy { it.sortingValues.deliveryCosts })
+                        addAll(notFavorited)
+                    }
+                    MIN_COSTS -> {
+                        addAll(favOpenList.sortedBy { it.sortingValues.minCost })
+                        addAll(favOrderAheadList.sortedBy { it.sortingValues.minCost })
+                        addAll(favClosedList.sortedBy { it.sortingValues.minCost })
+                        addAll(notFavorited)
+                    }
                     WORDS -> {
                         when {
                             !word.isNullOrEmpty() -> addAll(restaurants.filter { it.name.contains(word, ignoreCase = true) })
