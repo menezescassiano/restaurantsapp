@@ -57,25 +57,25 @@ class RestaurantRepositoryImpl(private val restaurantDao: RestaurantDao) : Resta
                 when (status) {
                     OPEN -> {
                         addAll(favOpenList)
-                        addAll(openList)
                         addAll(favOrderAheadList)
                         addAll(favClosedList)
+                        addAll(openList)
                         addAll(orderAhead)
                         addAll(closedList)
                     }
                     CLOSED -> {
                         addAll(favClosedList)
-                        addAll(closedList)
                         addAll(favOpenList)
                         addAll(favOrderAheadList)
+                        addAll(closedList)
                         addAll(openList)
                         addAll(orderAhead)
                     }
                     ORDER_AHEAD -> {
                         addAll(favOrderAheadList)
-                        addAll(orderAhead)
                         addAll(favOpenList)
                         addAll(favClosedList)
+                        addAll(orderAhead)
                         addAll(openList)
                         addAll(closedList)
                     }
@@ -83,49 +83,49 @@ class RestaurantRepositoryImpl(private val restaurantDao: RestaurantDao) : Resta
                         addAll(favOpenList.sortedBy { it.sortingValues.bestMatch }.reversed())
                         addAll(favOrderAheadList.sortedBy { it.sortingValues.bestMatch }.reversed())
                         addAll(favClosedList.sortedBy { it.sortingValues.bestMatch }.reversed())
-                        addAll(notFavorited)
+                        addAll(notFavorited.sortedBy { it.sortingValues.bestMatch }.reversed())
                     }
                     NEWEST -> {
                         addAll(favOpenList.sortedBy { it.sortingValues.newest }.reversed())
                         addAll(favOrderAheadList.sortedBy { it.sortingValues.newest }.reversed())
                         addAll(favClosedList.sortedBy { it.sortingValues.newest }.reversed())
-                        addAll(notFavorited)
+                        addAll(notFavorited.sortedBy { it.sortingValues.newest }.reversed())
                     }
                     RATING_AVERAGE -> {
                         addAll(favOpenList.sortedBy { it.sortingValues.ratingAverage }.reversed())
                         addAll(favOrderAheadList.sortedBy { it.sortingValues.ratingAverage }.reversed())
                         addAll(favClosedList.sortedBy { it.sortingValues.ratingAverage }.reversed())
-                        addAll(notFavorited)
+                        addAll(notFavorited.sortedBy { it.sortingValues.ratingAverage }.reversed())
                     }
                     DISTANCE -> {
                         addAll(favOpenList.sortedBy { it.sortingValues.distance })
                         addAll(favOrderAheadList.sortedBy { it.sortingValues.distance })
                         addAll(favClosedList.sortedBy { it.sortingValues.distance })
-                        addAll(notFavorited)
+                        addAll(notFavorited.sortedBy { it.sortingValues.distance })
                     }
                     POPULARITY -> {
                         addAll(favOpenList.sortedBy { it.sortingValues.popularity }.reversed())
                         addAll(favOrderAheadList.sortedBy { it.sortingValues.popularity }.reversed())
                         addAll(favClosedList.sortedBy { it.sortingValues.popularity }.reversed())
-                        addAll(notFavorited)
+                        addAll(notFavorited.sortedBy { it.sortingValues.popularity }.reversed())
                     }
                     AVERAGE_PRICE -> {
                         addAll(favOpenList.sortedBy { it.sortingValues.averageProductPrice })
                         addAll(favOrderAheadList.sortedBy { it.sortingValues.averageProductPrice })
                         addAll(favClosedList.sortedBy { it.sortingValues.averageProductPrice })
-                        addAll(notFavorited)
+                        addAll(notFavorited.sortedBy { it.sortingValues.averageProductPrice })
                     }
                     DELIVERY_COSTS -> {
                         addAll(favOpenList.sortedBy { it.sortingValues.deliveryCosts })
                         addAll(favOrderAheadList.sortedBy { it.sortingValues.deliveryCosts })
                         addAll(favClosedList.sortedBy { it.sortingValues.deliveryCosts })
-                        addAll(notFavorited)
+                        addAll(notFavorited.sortedBy { it.sortingValues.deliveryCosts })
                     }
                     MIN_COSTS -> {
                         addAll(favOpenList.sortedBy { it.sortingValues.minCost })
                         addAll(favOrderAheadList.sortedBy { it.sortingValues.minCost })
                         addAll(favClosedList.sortedBy { it.sortingValues.minCost })
-                        addAll(notFavorited)
+                        addAll(notFavorited.sortedBy { it.sortingValues.minCost })
                     }
                     WORDS -> {
                         when {

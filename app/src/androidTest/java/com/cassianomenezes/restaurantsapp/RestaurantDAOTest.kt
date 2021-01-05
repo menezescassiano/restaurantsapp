@@ -27,8 +27,8 @@ class RestaurantDAOTest {
         val restaurant2 = RestaurantObject(1, "Mama Mia Restaurant")
     }
 
-    private lateinit var appDatabase: AppDatabase //the db instance
-    private lateinit var restaurantDao: RestaurantDao //the dao
+    private lateinit var appDatabase: AppDatabase
+    private lateinit var restaurantDao: RestaurantDao
 
     @Before
     fun setUp() {

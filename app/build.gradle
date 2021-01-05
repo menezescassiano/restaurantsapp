@@ -19,6 +19,12 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
+
     dataBinding {
         enabled = true
     }
@@ -78,5 +84,13 @@ dependencies {
     kapt "androidx.room:room-compiler:$versions.room"
     implementation "androidx.room:room-ktx:$versions.room"
 
+    //swipe
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:$versions.swipe"
+
+    // unit testing
+    testImplementation "androidx.arch.core:core-testing:$versions.coreTesting"
+    testImplementation "androidx.test:core:$versions.testCode"
+    testImplementation "io.mockk:mockk:$versions.mockk"
+    testImplementation "org.robolectric:robolectric:$versions.robolectric"
+    testImplementation "org.robolectric:shadows-multidex:$versions.robolectric"
 }

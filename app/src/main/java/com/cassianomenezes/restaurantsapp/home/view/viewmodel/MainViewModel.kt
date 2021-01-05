@@ -19,7 +19,11 @@ class MainViewModel(val repository: DataRepository, val restaurantRepositoryImpl
     var inputTextSearch = ObservableField("")
 
     fun getData() {
-        restaurantData.postValue(repository.getRestaurants())
+        restaurantData.postValue(getOverallData())
+    }
+
+    fun getOverallData(): OverallData {
+        return repository.getRestaurants()
     }
 
     fun handleList(restaurants: List<Restaurant>) {
