@@ -57,13 +57,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onSearchClick() {
-        updateListAdapter(viewModel.inputTextSearch.get(), WORDS)
+        updateListAdapter(WORDS)
     }
 
     private fun setSwipeListener() {
         swipeLayout.run {
             setOnRefreshListener {
-                updateListAdapter(viewModel.inputTextSearch.get(), INITIAL)
+                updateListAdapter(INITIAL)
                 isRefreshing = false
                 viewModel.inputTextSearch.set("")
                 spinner.setSelection(0)
@@ -93,18 +93,18 @@ class MainActivity : AppCompatActivity() {
                 AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                     when (position) {
-                        1 -> updateListAdapter(viewModel.inputTextSearch.get(), OPEN)
-                        2 -> updateListAdapter(viewModel.inputTextSearch.get(), CLOSED)
-                        3 -> updateListAdapter(viewModel.inputTextSearch.get(), ORDER_AHEAD)
-                        4 -> updateListAdapter(viewModel.inputTextSearch.get(), BEST_MATCH)
-                        5 -> updateListAdapter(viewModel.inputTextSearch.get(), NEWEST)
-                        6 -> updateListAdapter(viewModel.inputTextSearch.get(), RATING_AVERAGE)
-                        7 -> updateListAdapter(viewModel.inputTextSearch.get(), DISTANCE)
-                        8 -> updateListAdapter(viewModel.inputTextSearch.get(), POPULARITY)
-                        9 -> updateListAdapter(viewModel.inputTextSearch.get(), AVERAGE_PRICE)
-                        10 -> updateListAdapter(viewModel.inputTextSearch.get(), DELIVERY_COSTS)
-                        11 -> updateListAdapter(viewModel.inputTextSearch.get(), MIN_COSTS)
-                        else -> updateListAdapter(viewModel.inputTextSearch.get(), INITIAL)
+                        1 -> updateListAdapter(OPEN)
+                        2 -> updateListAdapter(CLOSED)
+                        3 -> updateListAdapter(ORDER_AHEAD)
+                        4 -> updateListAdapter(BEST_MATCH)
+                        5 -> updateListAdapter(NEWEST)
+                        6 -> updateListAdapter(RATING_AVERAGE)
+                        7 -> updateListAdapter(DISTANCE)
+                        8 -> updateListAdapter(POPULARITY)
+                        9 -> updateListAdapter(AVERAGE_PRICE)
+                        10 -> updateListAdapter(DELIVERY_COSTS)
+                        11 -> updateListAdapter(MIN_COSTS)
+                        else -> updateListAdapter(INITIAL)
                     }
                 }
                 override fun onNothingSelected(parent: AdapterView<*>) {
@@ -114,10 +114,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateListAdapter(word: String? = "", status: StatusConstants) {
+    private fun updateListAdapter(status: StatusConstants) {
         recyclerView.apply {
             listAdapter.run {
-                list = viewModel.getDesiredOrder(word, restaurantsData.restaurants, status)
+                list = viewModel.getDesiredOrder(viewModel.inputTextSearch.get(), restaurantsData.restaurants, status)
                 notifyDataSetChanged()
             }
         }
