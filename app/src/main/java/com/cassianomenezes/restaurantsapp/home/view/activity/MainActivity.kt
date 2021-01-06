@@ -40,7 +40,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewModel.apply {
-            getData()
             observe(restaurantData) {
                 it?.let {
                     restaurantsData = it
@@ -53,6 +52,7 @@ class MainActivity : AppCompatActivity() {
                     setSpinner()
                 }
             }
+            lifecycle.addObserver(this)
         }
     }
 

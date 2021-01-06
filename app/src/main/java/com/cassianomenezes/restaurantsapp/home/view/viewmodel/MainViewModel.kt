@@ -1,9 +1,8 @@
 package com.cassianomenezes.restaurantsapp.home.view.viewmodel
 
+import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.cassianomenezes.restaurantsapp.database.RestaurantObject
 import com.cassianomenezes.restaurantsapp.database.RestaurantRepository
 import com.cassianomenezes.restaurantsapp.internal.StatusConstants
@@ -12,14 +11,18 @@ import com.cassianomenezes.restaurantsapp.model.Restaurant
 import com.cassianomenezes.restaurantsapp.repository.DataRepository
 import kotlinx.coroutines.launch
 
-class MainViewModel(val repository: DataRepository, val restaurantRepositoryImpl: RestaurantRepository) : ViewModel() {
+class MainViewModel(val repository: DataRepository, val restaurantRepositoryImpl: RestaurantRepository) : ViewModel(), LifecycleObserver {
 
     val restaurantData = MutableLiveData<OverallData>()
     val listData = MutableLiveData<List<Restaurant>>()
+    var running = ObservableBoolean(false)
     var inputTextSearch = ObservableField("")
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun getData() {
+        running.set(true)
         restaurantData.postValue(getOverallData())
+        running.set(false)
     }
 
     fun getOverallData(): OverallData {
